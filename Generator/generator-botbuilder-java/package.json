@@ -1,6 +1,6 @@
 {
   "name": "generator-botbuilder-java",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Template to create conversational bots in Java using Microsoft Bot Framework.",
   "homepage": "https://github.com/Microsoft/botbuilder-java",
   "author": {
