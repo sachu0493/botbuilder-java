@@ -28,7 +28,7 @@ module.exports = class extends Generator {
 
   writing() {
     const directoryName = _.kebabCase(this.props.botName);
-    const defaultDialog = this.props.dialog.split(' ')[0].toLowerCase();
+    const botName = this.props.botName;
 
     if (path.basename(this.destinationPath()) !== directoryName) {
       this.log(`Your bot should be in a directory named ${directoryName}\nI'll automatically create this folder.`);
@@ -38,6 +38,11 @@ module.exports = class extends Generator {
 
     this.fs.copyTpl(this.templatePath('pom.xml'), this.destinationPath('pom.xml'), { botName: directoryName });
     this.fs.copy(this.templatePath(`app.java`), this.destinationPath(`app.java`));
+    this.fs.copy(this.templatePath(`botName.bot`), this.destinationPath(`${this.props.botName}.bot`), {
+      process: function(content) {
+        var pattern = new RegExp('<%= botName %>','g');
+        return content.toString().replace(pattern, botName.toString()); 
+    }});
     this.fs.copyTpl(this.templatePath('README.md'), this.destinationPath('README.md'), {
       botName: this.props.botName, description: this.props.description
     });
